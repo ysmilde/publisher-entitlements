@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'entitlements',
 ]
 
+AUTH_USER_MODEL = 'entitlements.User'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
