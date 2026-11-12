@@ -4,8 +4,6 @@ from rest_framework.routers import DefaultRouter
 from .views import GrantProductView, RevokeProductView, UserEntitlementsView
 
 router = DefaultRouter()
-# Register viewsets here, e.g.:
-# router.register('entitlements', EntitlementViewSet)
 
 urlpatterns = router.urls + [
     path('subscriptions/', GrantProductView.as_view(), name='grant-product'),

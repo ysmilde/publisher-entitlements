@@ -6,7 +6,6 @@ class User(AbstractUser):
     """
     Custom user model that extends the default Django AbstractUser.
     Additional fields can be added here as needed.
-    Note: Admins have is_staff=True. They can log in and manage access. Regular users have is_staff=False. They’re the ones who hold subscriptions.
     """
 
 class Benefit(models.Model):
