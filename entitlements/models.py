@@ -14,6 +14,7 @@ class Benefit(models.Model):
     Model representing a benefit that can be associated with products. It will be used to determine what a user has access to based on their subscriptions.
     """
     name = models.CharField(max_length=255, unique=True)
+    code = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True)
 
     def __str__(self):
@@ -36,15 +37,17 @@ class Product(models.Model):
 class Subscription(models.Model):
     """
     Model representing a subscription that a user can have for a product. It is the relation between user and product.
-    Note: did not add a unique constraint yet, will circle back if I have time
+    This will be auditable, meaning we can keep track of a user's subscription history. A user can have multiple subscriptions 
+    for the same product over time, but only one active subscription at a time.
+    Note: need to add a unique constraint to ensure a user can only have one active subscription for a product at a time will circle back to this later. For now, we will handle this in the service layer.
     """
     # if a user deletes their account, we will delete their subscriptions as well -- later on we can change this or add an audit trail to keep track of deleted users and their subscriptions
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='subscriptions')
     # do not delete a product if a subscription exists
     product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='subscriptions')
     granted_date = models.DateTimeField(auto_now_add=True)
-    expire_date = models.DateTimeField(blank=True, null=True) # will compute is active by checking expire_date and is_revoked
-    is_revoked = models.BooleanField(default=False)
+    expire_date = models.DateTimeField() # will compute is active by checking expire_date and revoked_at
+    revoked_at = models.DateTimeField(blank=True, null=True) # null = not revoked
 
     def __str__(self):
         return f"{self.user.username} - {self.product.name}"
