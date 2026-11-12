@@ -7,8 +7,8 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .services import grant_product, revoke_product, get_user_entitlements
-from .models import Benefit, Product, Subscription
-from .serializers import BenefitSerializer, ProductSerializer, SubscriptionSerializer, UserProductSerializer
+from .models import Benefit, Product
+from .serializers import BenefitSerializer, SubscriptionSerializer, UserProductSerializer
 
 class GrantProductView(APIView):
     """

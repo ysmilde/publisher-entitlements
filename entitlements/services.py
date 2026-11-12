@@ -22,7 +22,7 @@ def grant_product(user, product):
     assumptions:
     1. Each subscription expires after a year (365 days) from the granted date.
     2. A user can have only one active subscription for a product at a time (only enforced in the service layer, not in the database).
-    3. If a user's subscription is revoked or expired, they can be granted the product again. This means that we can audit the history of subscriptions for a user and product.
+    3. If a user's subscription is revoked or expired, they can be granted the product again in a new subscription entry. This means that we can audit the history of subscriptions for a user and product.
     """
 
     # Check if the user already has an active subscription for the product

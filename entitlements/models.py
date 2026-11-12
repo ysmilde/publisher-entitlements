@@ -36,10 +36,11 @@ class Product(models.Model):
 
 class Subscription(models.Model):
     """
-    Model representing a subscription that a user can have for a product. It is the relation between user and product.
-    This will be auditable, meaning we can keep track of a user's subscription history. A user can have multiple subscriptions 
-    for the same product over time, but only one active subscription at a time.
-    Note: need to add a unique constraint to ensure a user can only have one active subscription for a product at a time will circle back to this later. For now, we will handle this in the service layer.
+    Model representing the relationship between user and product.
+    This will be auditable, meaning we can keep track of a user's subscription history. 
+    A user can have multiple subscriptions for the same product over time, but only one active subscription at a time.
+    Note: need to add a unique constraint to ensure a user can only have one active subscription for a product at a 
+    time will circle back to this later. For now, we will handle this in the service layer.
     """
     # if a user deletes their account, we will delete their subscriptions as well -- later on we can change this or add an audit trail to keep track of deleted users and their subscriptions
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='subscriptions')
